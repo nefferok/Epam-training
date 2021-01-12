@@ -1,0 +1,123 @@
+		
+            //String dataString = data.toString();
+            
+			
+			//System.out.println(dataString);
+			
+			
+			/*String [] lines = dataString.split("\n");
+			for (int i = 0; i < lines.length; i++) {
+				String [] elements = lines[i].split(";");
+				try{
+					int zeroElement = Integer.parseInt(elements[0]);
+					
+					//try {
+						
+						double current = Double.parseDouble(elements[zeroElement]);
+						System.out.println(current);
+						System.out.println(result.length() == 0);
+						if (result.length()==0 && current<0) {
+							
+						}
+						
+					//} catch (IndexOutOfBoundsException ibe) {
+						//counterError++;
+					//}
+					
+				} catch (NumberFormatException | IndexOutOfBoundsException e) {
+					counterError++;				
+				}			
+			}
+			System.out.println("error-lines = " + counterError );
+			
+			
+			
+			
+			
+		/*	for (int i = 0; i<lines.length; i++) {
+				String [] elements;
+				elements = lines[i].split(";");
+				System.out.println(Arrays.toString(elements));
+				
+				Pattern zeroPattern = Pattern.compile("\\d+");
+				Pattern doublePattern = Pattern.compile("-?\\d+\\.\\d+");
+				int zeroElement;
+				double current;
+				if (zeroPattern.matcher(elements[0]).matches() && elements[0]!=null) {
+					zeroElement = Integer.parseInt(elements[0]);
+					if (zeroElement>elements.length) {
+						counterError++;
+					} else {
+						if (doublePattern.matcher(elements[zeroElement]).matches() && elements[zeroElement]!=null){
+							current = Double.parseDouble(elements[zeroElement]);
+							if (current < 0) {
+								result.append(current).append(" - ");
+								
+							}
+						} else {
+							counterError++;
+						}
+					}
+				} else {
+					counterError++;
+				}
+
+				
+				
+				
+				//double determined = Double.parseDouble(elements[zeroElement]);
+				
+			}*/
+			
+
+
+
+
+
+
+
+
+
+
+
+/*String string = "3;qw;4;5.2;2.7\r\n" + 
+				"15;;;k;5\r\n" + 
+				"1;-3.14;fgh;5\r\n" + 
+				"0;;e1;2;3\r\n" + 
+				"-2.3;a;b;c\r\n" + 
+				"b;d;e";
+		String[] lines = string.split("\n");
+		
+		String [] elements;
+		
+		for (int i = 0; i<lines.length; i++) {
+			elements = lines[i].split(";");
+			int zeroElement = Integer.parseInt(elements[0]);
+			double determined = Double.parseDouble(elements[zeroElement]);
+			
+		}
+		String[] attributes = string.split(";");
+		System.out.println(lines[3]);
+		/*
+		Scanner scanner = null;
+
+          try {
+        	  StringBuilder result = new StringBuilder();
+              scanner = new Scanner(new File(FILE_PATH));
+              scanner.useDelimiter("\n");
+
+              while (scanner.hasNext()) {
+                  result.append(scanner.next()).append("\n");
+              }
+              
+              
+              String[] elements = fileContent.split("\n");
+              String[] attributes = element.split(";");
+          } catch (FileNotFoundException e) {
+  			System.err.println("Input file is not found");
+			
+  		} finally {
+  			if (scanner != null) {
+  				scanner.close();
+  			}
+  		}*/

@@ -1,0 +1,14 @@
+package by.gsu.epamlab.enums;
+
+public enum Weekdays {
+	 SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;// с понедельника
+
+		@Override
+		public String toString() {//стандартный тустринг сделает тоже самое
+			// TODO Auto-generated method stub
+			return name();
+		}
+		
+
+
+}
