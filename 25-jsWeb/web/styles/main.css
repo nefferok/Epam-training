@@ -1,0 +1,238 @@
+
+body {
+    background-image: url("../images/material-background-texture.jpg");
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 10px;
+}
+
+#logout,
+.main-topnav-form,
+.newTask,
+.main-footnav-form {
+    margin: 0;
+}
+
+.topnav {
+    text-align: center;
+    width: 600px;
+    height: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+    box-shadow: 0px -1px 17px 5px rgba(0, 0, 0, .1);
+}
+
+.topnav span {
+    float: left;
+    color: #551a8b;
+    font-size: 22px;
+    padding: 15px;
+    font-weight: bolder;
+}
+
+.button {
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.topnav a.button {
+    float: right;
+    border-radius: 3px;
+    border: solid 1px;
+    padding: 12px;
+    outline: none;
+    font-size: 14px;
+    margin: 0.2em 20px 0.2em 0.2em;
+}
+
+.topnav button.button,
+.main-topnav button.button,
+#main-footnav button.button,
+.newTask button.button {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    color: #551a8b;
+    border-radius: 3px;
+    border: solid #551a8b 1px;
+    font-size: 14px;
+    padding: 12px;
+    outline: none;
+    margin: 3px;
+}
+
+.topnav button.button {
+    float: right;
+    margin: 0.2em 20px 0.2em 0.2em;
+}
+
+.main-topnav button.button {
+    font-size: 14px;
+    margin: 5px;
+}
+
+.button,
+.button::before,
+.button::after {
+    -webkit-transition: all ease .5s;
+    transition: all ease .5s;
+}
+
+.button:hover {
+    box-shadow: 0 0 5em .5em rgba(50, 50, 150, 0.5);
+}
+
+.button::before {
+    border-style: solid none;
+}
+
+.button::after {
+    border-style: none solid;
+}
+
+.button:hover::after {
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+}
+
+.button:hover::before {
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+}
+
+.container {
+    width: 620px;
+    height: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
+}
+
+.all-content {
+    width: 600px;
+    height: 480px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+}
+
+.main-topnav {
+    width: 580px;
+    height: 55px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.main-content {
+    width: 580px;
+    height: 380px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.main-content strong {
+    text-transform: uppercase;
+}
+
+.newTask input {
+    height: 16px;
+    border-radius: 3px;
+    border: solid #551a8b 1px;
+    padding: 12px;
+    margin: 3px;
+}
+
+#main-footnav {
+    width: 560px;
+    height: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px 10px;
+    text-align: center;
+}
+
+#add-task {
+    width: 560px;
+    height: 60px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px 10px;
+}
+
+#main-footnav-form {
+    width: 550px;
+    height: 50px;
+    padding: 5px 5px;
+}
+
+.footer {
+    width: 600px;
+    height: 30px;
+    clear: left;
+    padding: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 12px;
+    text-align: center;
+    color: #551a8b;
+    box-shadow: 1px 9px 19px 1px rgba(0, 0, 0, .1);
+}
+
+.tasks-table {
+    display: block;
+    max-height: 200px;
+    width: 80%;
+    border-collapse: collapse;
+    border-bottom: 2px solid #551a8bbd;
+    border-top: 2px solid #551a8bbd;
+    margin: 10px 60px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.tasks-table td {
+    border-bottom: 1px solid #551a8b40;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    padding: 3px;
+}
+
+th#select-all-checkbox {
+    text-align: center;
+    padding:3px;
+}
+
+.tasks-table tr:hover {
+    background-color: #a596b336;
+}
+
+.tasks-table thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.tasks-table thead {
+    background: #a596b361;
+    color: black;
+}
+
+.error,#errorText {
+    color: red;
+    text-align: center;
+    padding-top: 15px;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.placeholderred::-webkit-input-placeholder {
+    color: red;
+}

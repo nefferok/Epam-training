@@ -1,0 +1,88 @@
+body {
+    background-image: url("../images/material-background-texture.jpg");
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+    color: #551a8b;
+}
+
+.login-page {
+    width: 360px;
+    padding: 4% 0 0;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+    height: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.entry-field {
+    background-image: linear-gradient(to right, #c2bfc51f, rgb(176 168 184 / 30%));
+    outline: 0;
+    width: 100%;
+    border: 1px solid #551a8b45;
+    border-radius: 3px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form button {
+    text-transform: uppercase;
+    outline: 0;
+    background: #a596b387;
+    width: 55%;
+    border: 1px solid #a596b36b;
+    border-radius: 3px;
+    padding: 15px;
+    color: #551a8bd4;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form button:hover, .form button:active, .form button:focus {
+    background: #551a8b4a;
+}
+
+.form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+
+.form .message a {
+    color: #551a8b;
+}
+
+.form .message a:hover {
+    color: #551a8bbd;
+}
+
+::-webkit-input-placeholder {
+    color: #551a8b73;
+    font-size: 16px;
+}
+
+input.placeholderred::-webkit-input-placeholder {
+    color: red;
+}
+
+#errorText, .error {
+    color: red;
+    text-align: center;
+    padding-top: 15px;
+    font-weight: bolder;
+    font-size: 16px;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Main</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+    <link rel="stylesheet" href="styles/main.css">
+    <script type="text/javascript" defer src="scripts/start.js"></script>
+    <script type="text/javascript" defer src="scripts/utils.js"></script>
+    <script type="text/javascript" defer src="scripts/cookie.js"></script>
+    <script type="text/javascript" defer src="scripts/validation.js"></script>
+</head>
+<body onLoad="start()">
+<div class="topnav">
+    <form id="logout" method="post" action="logout">
+        <button type="submit" class="button" onclick="deleteCookie('username')">
+            LogOut
+        </button>
+    </form>
+    <span id="userName"></span>
+</div>
+<div class="container">
+    <div class="all-content">
+        <div class="main-topnav">
+            <form id="main-topnav-form"></form>
+        </div>
+        <div class="main-content">
+            <strong id="table-tasks-header"></strong>
+            <div id="tasks-empty">
+                <h2>No tasks</h2>
+            </div>
+            <br/>
+            <strong id="errorText" ></strong>
+            <form id="main-table" method="post" name="main-table" action="operate">
+                <table class="tasks-table">
+                    <thead>
+                    <tr>
+                        <th id="select-all-checkbox">
+                            <label>
+                                <input type="checkbox"/>
+                            </label>
+                        </th>
+                        <th>Tasks</th>
+                        <th id="date-column-header">Date</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tasks-list">
+                    </tbody>
+                </table>
+                <div id="main-footnav">
+                </div>
+            </form>
+            <div id="add-task">
+                <form id="main-footnav-form" class="newTask" name="newTask" method="post" action="add">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+     © 2020 Copyright:
+        <strong> Developed by Aliaksandr Litvinenka nefferok.litv1n@gmail.com &
+            Siarhei Krautsou gooruken@gmail.com
+        </strong>
+
+</div>
+</body>
+</html>
