@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- index.html -->
+<html>
+<head>
+	<title>Conferences</title>
+	<script type="text/javascript">
+
+	async function start() {
+		const urlParams = new URLSearchParams(location.search);
+		const idConf = urlParams.get("idConf");
+		if(idConf) {
+			prog(idConf);
+			return;			
+		}
+
+
+		if (response.ok) {
+			const confsArray = await response.json();
+			const confsTable = document.getElementById("confs-list");
+			for(let conf of confsArray) {
+				const a = document.createElement('a');
+				a.setAttribute('href', '#');
+				a.onclick = function(){
+					prog(`${conf.id}`);
+			    }
+				a.innerHTML = `${conf.name}`;
+				const td1 = document.createElement('td');
+				td1.appendChild(a);
+				const td2 = document.createElement('td');
+				td2.innerHTML = `&nbsp;&nbsp;${conf.date}`;
+				const tr = document.createElement('tr');
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				confsTable.appendChild(tr);
+			}
+		} else {
+			alert("HTTP error: " + response.status);
+		}
+		document.getElementById('events').style.display = 'none';
+	}
+
+	async function prog(confId) {
+		const url = `confs?idConf=${confId}`; 
+		const response = await fetch(url);
+
+		if (response.ok) {
+			const confEvents = await response.json();
+			document.getElementById("conf-name").innerHTML = confEvents.conf.name;
+			document.getElementById("faculty").innerHTML = confEvents.conf.faculty;
+			document.getElementById("date").innerHTML = confEvents.conf.date;
+			const eventsArray = confEvents.events;
+			if(eventsArray.length == 0) {
+				document.getElementById('events-empty').style.display = 'block';
+				document.getElementById('events-form').style.display = 'none';
+			} else {
+				document.getElementById('events-empty').style.display = 'none';
+				document.getElementById('events-form').style.display = 'block';
+				const eventsTable = document.getElementById("events-list");
+				eventsTable.innerHTML = '';
+				for(let event of eventsArray) {
+					const input = document.createElement('input');
+					input.setAttribute('type', 'checkbox');
+					input.setAttribute('name', 'idEvent');
+					input.setAttribute('value', event.id);
+					input.setAttribute('checked', 'checked');
+					const td1 = document.createElement('td');
+					td1.appendChild(input);
+					const td2 = document.createElement('td');
+					td2.innerHTML = event.name;
+					const td3 = document.createElement('td');
+					td3.innerHTML = event.time;
+					const tr = document.createElement('tr');
+					tr.appendChild(td1);
+					tr.appendChild(td2);
+					tr.appendChild(td3);
+					eventsTable.appendChild(tr);
+				}
+			}
+			document.getElementById('confs').style.display = 'none';
+			document.getElementById('events').style.display = 'block';
+		} else {
+			alert("HTTP error: " + response.status);
+		}
+	}
+
+
+	
+	function registerParticipant() {
+		reg.account.value = reg.account.value.trim();
+		if(reg.account.value === "") {
+			document.getElementById("errReg").innerHTML = "Account is empty";
+			return false;
+		}
+		let checked = false;
+		if(typeof reg.idEvent.length === "undefined") {
+			checked = reg.idEvent.checked;
+		} else {
+			for(let ide of reg.idEvent) {
+				if(ide.checked) {
+					checked = true;
+					break;
+				}
+			}
+		}
+		if(!checked) {
+			document.getElementById("errReg").innerHTML = "No checked events";
+			return false;
+		}
+		reg.submit();
+	}	
+
+	function addEvent() {
+		add.eventName.value = add.eventName.value.trim();
+		if(add.eventName.value === "") {
+			document.getElementById("errAdd").innerHTML = "Name is empty";
+			return false;
+		}
+		add.eventTime.value = add.eventTime.value.trim();
+		if(add.eventTime.value === "") {
+			document.getElementById("errAdd").innerHTML = "Time is empty";
+			return false;
+		}
+		add.submit();
+	}	
+
+	</script>
+</head>
+<body onLoad="start()">
+	<div id='confs'>
+	<h2>GSU Conferences</h2>
+		<table id="confs-list" border=0>
+		</table>
+	</div>
+
+	<div id='events'>
+		<h2 id='conf-name'></h2>
+		<table border=0>
+			<tr>
+				<td>Faculty:&nbsp;</td><td id="faculty"></td>
+			</tr>
+			<tr>
+				<td>Date:</td><td id="date"></td>
+			</tr>
+		</table>
+		<p/>
+		<div id='events-empty'>
+			<p style="color:red;">
+				Conference program is under construction...
+			</p>
+		</div>
+		<div id='events-form'>
+			<form name="reg" action="reg" method="post" onsubmit="return false">
+			<table border=0>
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th>Event</th>
+						<th>Time</th>
+					</tr>
+				</thead>
+				<tbody id="events-list">
+				</tbody>
+			</table>
+			<p/>
+			Account: <input type="text" name="account"/>
+			<p id="errReg" style="color:red;"></p>
+			<input type="button" value="Register participant" onclick="return registerParticipant()"/>
+			</form>
+		</div>
+		<p/>
+		
+		<form name="add" action="confs" method="post" onsubmit="return false">
+		<table>
+			<tr>
+				<td>Name</td>
+				<td><input type="text" name="eventName"></td>
+			</tr>
+			<tr>
+				<td>Time</td>
+				<td><input type="text" name="eventTime"></td>
+			</tr>
+			<tr align="center">
+				<td colspan="2"><input type="button" value="Add event" onclick="return addEvent()"/></td>
+			</tr>
+		</table>
+		</form>
+		<p id="errAdd" style="color:red;"></p>
+		<p/>
+		<a href="index.html">Conferences</a>
+	</div>
+</body>
+</html>

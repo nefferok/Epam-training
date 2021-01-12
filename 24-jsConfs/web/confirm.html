@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- confirm.html -->
+<html>
+<head>
+	<title>Conferences</title>
+	<script type="text/javascript">
+	function start() {
+		const urlParams = new URLSearchParams(location.search);
+		const strAccount = urlParams.get("account");
+		const nameConf = urlParams.get("nameConf");
+		const strError = urlParams.get("error");
+		document.getElementById('conf').innerHTML = nameConf;
+		document.getElementById('account').innerHTML = strAccount;
+		if(strError) {
+			document.getElementById('not').innerHTML = 'not ';
+		} else {
+			document.getElementById('error').style.display = 'none';
+		}
+	}
+	</script>
+</head>
+<body onLoad="start()">
+	<h2 id="conf"></h2>
+	<br/>
+	<span id="account"></span>, your application has <span id="not"></span>been registered!
+	<div id="error">
+		<p style="color:red;">
+			Some problem with data source on the server...
+		</p>
+	</div>
+	<p/>
+	<a href="index.html">Conferences</a>
+</body>
+</html>

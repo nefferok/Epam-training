@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Stat</title>
+    <script type="text/javascript">
+        const MIN_NUM = 2;
+        const MAX_NUM = 10;
+        let statsNumber;
+
+        function start() {
+            document.getElementById('min').innerHTML = MIN_NUM;
+            document.getElementById('max').innerHTML = MAX_NUM;
+            initDisplay();
+        }
+
+        function initDisplay() {
+            document.getElementById('how_much').style.display = 'block';
+            document.getElementById('values').style.display = 'none';
+            document.getElementById('result').style.display = 'none';
+        }
+
+        function generate() {
+            let err = document.getElementById("errorText");
+            err.innerHTML = "";
+
+            statsNumber = new Number(document.getElementById('number').value);
+
+            function isInteger(number) {
+                return Math.floor(number) == number;
+            }
+
+            if (!isInteger(statsNumber) || statsNumber < MIN_NUM || statsNumber > MAX_NUM) {
+                err.innerHTML = "input integer number between " + MIN_NUM + " and " + MAX_NUM;
+                return;
+            }
+
+            let inputs = document.getElementById("inputs");
+            inputs.innerHTML = "";
+            for (let i = 0; i < statsNumber; i++) {
+                let input = document.createElement('input');
+                input.setAttribute('id', 'stats' + i);
+                input.setAttribute('type', 'number');
+                input.setAttribute('min', '-1000');
+                input.setAttribute('max', '1000');
+                inputs.appendChild(document.createTextNode(i + ': '));
+                inputs.appendChild(input);
+                inputs.appendChild(document.createElement("br"));
+            }
+            document.getElementById('how_much').style.display = 'none';
+            document.getElementById('values').style.display = 'block';
+        }
+
+        function action(type) {
+            let err = document.getElementById("errorText");
+            err.innerHTML = "";
+            let arr = new Array(statsNumber);
+            let strNumbers = "";
+
+            for (let i = 0; i < statsNumber; i++) {
+                let element = document.getElementById('stats' + i).value;
+
+                if (element === "") {
+                    err.innerHTML = "empty input";
+                    return;
+                }
+
+                let num = new Number(element.trim());
+
+                arr[i] = num;
+                strNumbers += i !== statsNumber - 1 ? num + ", " : num;
+            }
+
+            let res = (type) => {
+                switch (type) {
+                    case 'sum':
+                        return arr.reduce((a,b) => a + b, 0);
+                    case 'min':
+                        return Math.min(...arr);
+                    case 'max':
+                        return Math.max(...arr);
+                    case 'avg':
+                        return arr.reduce((a,b) => a + b, 0)/arr.length;
+                }
+            };
+
+            document.getElementById('result_line').innerHTML = type + " (" + strNumbers + ") is " + res(type);
+
+            document.getElementById('values').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+        }
+
+    </script>
+</head>
+<body onload="start()">
+
+<p id="errorText" style="color:red"></p>
+
+<div id="how_much">
+    stats number(between <span id="min"></span> and <span id="max"></span>):&nbsp;
+    <input id="number" type="text"/>
+    <br/>
+    <a href="#" onclick="generate()">generate inputs</a>
+</div>
+
+<div id="values">
+    <div id="inputs">
+
+    </div>
+    <br/>
+    <a href="#" onclick="action('sum')">sum</a>
+    <a href="#" onclick="action('min')">min</a>
+    <a href="#" onclick="action('max')">max</a>
+    <a href="#" onclick="action('avg')">avg</a>
+    <br/><br/>
+    <a href="#" onclick="initDisplay()">Back</a>
+</div>
+
+<div id="result">
+    <p id="result_line"></p>
+    <br/>
+    <a href="#" onclick="initDisplay()">next trial</a>
+</div>
+
+</body>
+</html>

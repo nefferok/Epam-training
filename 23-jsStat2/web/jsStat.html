@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Stat</title>
+    <script type="text/javascript">
+        "use strict";
+        const MIN_NUM = 2;
+        const MAX_NUM = 10;
+        let statsNumber;
+        let ARRAY_LEN;
+
+        async function start() {
+            document.getElementById('min').innerHTML = `${MIN_NUM}`;
+            document.getElementById('max').innerHTML = `${MAX_NUM}`;
+            const input = document.getElementById('number');
+            input.setAttribute('min', MIN_NUM);
+            input.setAttribute('max', MAX_NUM);
+            input.setAttribute('value', MIN_NUM + 1);
+
+            let url = 'stat';
+            let response = await fetch(url);
+
+            if (response.ok) {
+                let strArrayLen = await response.json();
+                ARRAY_LEN = parseInt(strArrayLen)-1;
+                document.getElementById('array_len').innerHTML = ARRAY_LEN;
+            } else {
+                alert("HTTP error: " + response.status);
+            }
+            initDisplay('block', 'none', 'none');
+        }
+
+        function initDisplay(styleHowMuch, styleValues, styleResult) {
+            document.getElementById('how_much').style.display = styleHowMuch;
+            document.getElementById('values').style.display = styleValues;
+            document.getElementById('result').style.display = styleResult;
+        }
+
+        function isInteger(number) {
+            return Math.floor(number) == number;
+        }
+
+        function isOut(num, minValue, maxValue) {
+            return num < minValue || num > maxValue;
+        }
+
+        function isOkAndNotify(num, minValue, maxValue, err) {
+            if(!isInteger(num) || isOut(num, minValue, maxValue)) {
+                err.innerHTML = `input integer number between ${minValue} and ${maxValue}`;
+                return false;
+            }
+            return true;
+        }
+
+        function generate() {
+            let err = document.getElementById("errorText");
+            err.innerHTML = "";
+
+            statsNumber = new Number(document.getElementById('number').value);
+
+            if(!isOkAndNotify(statsNumber, MIN_NUM, MAX_NUM, err)) {
+                return;
+            }
+
+            let inputs = document.getElementById("inputs");
+            inputs.innerHTML = "";
+            for (let i = 0; i < statsNumber; i++) {
+                const input = document.createElement('input');
+                input.setAttribute('id', `stats${i}`);
+                input.setAttribute('type', 'number');
+                input.setAttribute('min', '0');
+                input.setAttribute('max', `${ARRAY_LEN}`);
+                inputs.append(`${i}:&nbsp;`);
+                inputs.appendChild(input);
+                inputs.appendChild(document.createElement('br'));
+            }
+            initDisplay('none', 'block', 'none');
+        }
+
+        async function action(type) {
+            let err = document.getElementById("errorText");
+            err.innerHTML = "";
+            let inds = new Array(statsNumber);
+
+            for(let i = 0; i < statsNumber; i++) {
+                let nextStat = document.getElementById(`stats${i}`).value;
+                let num = new Number(nextStat);
+                if(!isOkAndNotify(num, 0, ARRAY_LEN, err)) {
+                    return;
+                }
+                inds[i] = num;
+            }
+
+            let url = 'stat?inds=' + `${inds.join(';')}`;
+
+            let response = await fetch(url);
+
+            if (response.ok) {
+                let arr = await response.json();
+                let func = {
+                    'sum' :
+                        function(res, val) {
+                            return res + val;
+                        },
+                    'max' :
+                        function(res, val) {
+                            return val > res ? val : res;
+                        },
+                    'min' :
+                        function(res, val) {
+                            return val < res ? val : res;
+                        }
+                };
+                func['avg'] = func['sum'];
+                let res = arr.reduce(func[type]);
+                if (type == 'avg') {
+                    res /= statsNumber;
+                }
+
+                document.getElementById('result_line').innerHTML = `${type}(${arr.join(', ')}) = ${res}`;
+            } else {
+                alert("HTTP error: " + response.status);
+            }
+
+            initDisplay('none', 'none', 'block');
+        }
+
+    </script>
+</head>
+<body onload="start()">
+
+<p id="errorText" style="color:red"></p>
+
+<div id="how_much">
+    stats number(between <span id="min"></span> and <span id="max"></span>):&nbsp;
+    <input id="number" type="text"/>
+    <br/>
+    <a href="#" onclick="generate()">generate inputs</a>
+</div>
+
+<div id="values">
+    input indices (less than <span id="array_len"></span>)
+    <div id="inputs">
+
+    </div>
+    <br/>
+    <a href="#" onclick="action('sum')">sum</a>
+    <a href="#" onclick="action('min')">min</a>
+    <a href="#" onclick="action('max')">max</a>
+    <a href="#" onclick="action('avg')">avg</a>
+    <br/><br/>
+    <a href="#" onclick="initDisplay('block', 'none', 'none')">Back</a>
+</div>
+
+<div id="result">
+    <p id="result_line"></p>
+    <br/>
+    <a href="#" onclick="initDisplay('block', 'none', 'none')">next trial</a>
+</div>
+
+</body>
+</html>
